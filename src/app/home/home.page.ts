@@ -19,9 +19,9 @@ export class HomePage implements OnInit {
   ];
 
   entrada = [
-    { tipo: 'normal', precio: 10000 },
-    { tipo: 'exhibicion', precio: 50000 },
-    { tipo: 'torneo', precio: 30000 }
+    { tipo: 'normal', suma: 10000 },
+    { tipo: 'premium', suma: 50000 },
+    { tipo: 'vip', suma: 30000 }
   ];
 
   numentradas!: number;
@@ -60,11 +60,28 @@ export class HomePage implements OnInit {
     }
   }
 
-  getAlertMessage() {
-    return `
-      El valor único es de $${this.precio}
-      El valor total es de $${this.precio}
+  entradaSeleccion(entrada: string){
+    const entradaEncontrada = this.entrada.find(e => e.tipo === entrada);
+    if (entradaEncontrada) {
+      this.precio = this.precio+entradaEncontrada.suma;
+    } else {
+      this.precio = this.precio;  
+    }
+  }
 
+  getAlertMessage() {
+    
+    const esPrecioValido = typeof this.precio === 'number' && !isNaN(this.precio);
+    const esTotalValido = typeof this.numentradas === 'number' && !isNaN(this.numentradas);
+  
+    if (!esPrecioValido || !esTotalValido) {
+      return 'No has completado los datos del formulario';
+    }
+  
+    const total = this.precio * this.numentradas;
+    return `
+      El valor único es de $${this.precio}<br>
+      El valor total es de $${total}
     `;
   }
 }

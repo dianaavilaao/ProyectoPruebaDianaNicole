@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Eventos Nicolita
+    <ion-title class="ion-text-center">
+      Eventos Nicolita y Dianita
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -44,12 +44,15 @@
 
 
       <ion-item>
-        <ion-select label="Tipo de entrada" placeholder="Seleccione el tipo de entrada" [(ngModel)]="entrada">
-          <ion-select-option value="normal">Normal</ion-select-option>
-          <ion-select-option value="premiun">Premiun</ion-select-option>
-          <ion-select-option value="vip">VIP</ion-select-option>
+        <ion-label>Tipo de entrada</ion-label>
+        <ion-select (ionChange)="entradaSeleccion($event.detail.value)">
+          <ion-select-option *ngFor="let entrada of entrada" [value]="entrada.tipo">
+            {{ entrada.tipo }}
+          </ion-select-option>
         </ion-select>
       </ion-item>
+
+
     </ion-list>
 
       <ion-item>
